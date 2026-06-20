@@ -15,11 +15,11 @@ export function InputPanel({ input, set, setRoi }: Props) {
       <div className="space-y-2">
         <label className="block text-sm">{PRICING.devices.note.label} 수량</label>
         <input type="number" min={0} value={input.devices.note}
-          onChange={(e) => set("devices", { ...input.devices, note: Number(e.target.value) || 0 })}
+          onChange={(e) => set("devices", { ...input.devices, note: Math.max(0, Number(e.target.value) || 0) })}
           className="w-full px-3 py-2 rounded bg-black/30 border border-white/10" />
         <label className="block text-sm">{PRICING.devices.notePro.label} 수량</label>
         <input type="number" min={0} value={input.devices.notePro}
-          onChange={(e) => set("devices", { ...input.devices, notePro: Number(e.target.value) || 0 })}
+          onChange={(e) => set("devices", { ...input.devices, notePro: Math.max(0, Number(e.target.value) || 0) })}
           className="w-full px-3 py-2 rounded bg-black/30 border border-white/10" />
       </div>
 
@@ -27,12 +27,12 @@ export function InputPanel({ input, set, setRoi }: Props) {
         <label className="block text-sm">구독 플랜</label>
         <select value={input.plan} onChange={(e) => set("plan", e.target.value as "starter" | "pro")}
           className="w-full px-3 py-2 rounded bg-black/30 border border-white/10">
-          <option value="starter">{PRICING.plans.starter.label}</option>
-          <option value="pro">{PRICING.plans.pro.label}</option>
+          <option value="starter">{PRICING.plans.starter.label}{PRICING.plans.starter.estimated ? " ⚠️추정" : ""}</option>
+          <option value="pro">{PRICING.plans.pro.label}{PRICING.plans.pro.estimated ? " ⚠️추정" : ""}</option>
         </select>
         <label className="block text-sm">사용자 수</label>
         <input type="number" min={1} value={input.users}
-          onChange={(e) => set("users", Number(e.target.value) || 1)}
+          onChange={(e) => set("users", Math.max(1, Number(e.target.value) || 1))}
           className="w-full px-3 py-2 rounded bg-black/30 border border-white/10" />
       </div>
 

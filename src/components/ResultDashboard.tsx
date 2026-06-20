@@ -11,10 +11,11 @@ export function ResultDashboard({ result, years }: { result: QuoteResult; years:
     { label: `${years}년 총비용(TCO)`, value: result.tco, suffix: " 원" },
     { label: "월 절약액(추정)", value: result.monthlySaving, suffix: " 원" },
     { label: "투자 회수기간", value: Math.round(result.paybackMonths * 10) / 10, suffix: " 개월" },
+    { label: `${years}년 순절약액(추정)`, value: result.netSaving, suffix: " 원" },
   ];
   return (
     <section className="space-y-6">
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {stats.map((s, i) => (
           <motion.div key={s.label} className={card}
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
