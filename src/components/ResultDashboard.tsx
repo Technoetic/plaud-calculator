@@ -28,10 +28,10 @@ export function ResultDashboard({ result, years }: { result: QuoteResult; years:
               )}
             </div>
             <div className="mt-auto pt-3 flex items-baseline gap-0.5 whitespace-nowrap">
-              <span className="text-xl lg:text-2xl font-bold text-accent tabular-nums leading-none">
+              <span className="text-lg lg:text-xl font-bold text-accent tabular-nums leading-none tracking-tight">
                 <NumberTicker value={s.value} />
               </span>
-              <span className="text-sm font-semibold text-accent/80 shrink-0">{s.unit}</span>
+              <span className="text-xs font-semibold text-accent/80 shrink-0">{s.unit}</span>
             </div>
           </motion.div>
         ))}
