@@ -2,7 +2,7 @@
 title: "PLAUD 견적 웹앱 설계 스펙"
 type: project
 domain: dhis
-status: approved
+status: done
 ai_priority: medium
 tags: [spec, plaud, calculator, webapp, tool, ax]
 related:

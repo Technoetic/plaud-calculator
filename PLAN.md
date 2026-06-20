@@ -2,7 +2,7 @@
 title: "PLAUD 견적 웹앱 구현 계획"
 type: project
 domain: dhis
-status: ready
+status: done
 ai_priority: medium
 tags: [plan, plaud, calculator, webapp, tool, react]
 related:

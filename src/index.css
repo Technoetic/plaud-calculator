@@ -2,5 +2,5 @@
 @tailwind components;
 @tailwind utilities;
 
-@keyframes drift { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(40px,-30px) scale(1.1); } }
+@keyframes drift { 0%,100% { transform: translate(0,0) scale(1) rotate(0deg); } 33% { transform: translate(70px,-50px) scale(1.18) rotate(8deg); } 66% { transform: translate(-50px,40px) scale(0.92) rotate(-6deg); } }
 @media print { .no-print { display: none !important; } body { background: #fff; color: #000; } }
