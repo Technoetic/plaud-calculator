@@ -21,7 +21,7 @@ export function ResultDashboard({ result, years }: { result: QuoteResult; years:
           <motion.div key={s.label} className={statCard}
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.12, duration: 0.5 }}>
-            <div className="text-xs text-white/60 break-keep leading-snug min-h-[2.25rem]">{s.label}</div>
+            <div className="text-xs text-white/60 break-keep leading-snug min-h-[2.75rem]">{s.label}</div>
             <div className="mt-auto pt-2 flex items-baseline gap-0.5 whitespace-nowrap">
               <span className="text-xl lg:text-2xl font-bold text-accent tabular-nums leading-none">
                 <NumberTicker value={s.value} />
