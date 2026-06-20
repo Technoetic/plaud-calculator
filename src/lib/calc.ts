@@ -17,12 +17,19 @@ export function won(n: number): string {
   return Math.round(n).toLocaleString("en-US");
 }
 
-export function computeQuote(input: QuoteInput): QuoteResult {
+/** plan의 연 구독료(원). usdRate가 주어지고 plan에 usd 원가가 있으면 실시간 환율로 환산, 아니면 yearly 폴백. */
+export function planYearlyKrw(plan: "starter" | "pro", usdRate?: number): number {
+  const p = PRICING.plans[plan];
+  if (usdRate && typeof p.usd === "number") return Math.round(p.usd * usdRate);
+  return p.yearly;
+}
+
+export function computeQuote(input: QuoteInput, usdRate?: number): QuoteResult {
   const { devices, plan, users, years, vatIncluded, roi } = input;
   const hardwareCost =
     devices.note * PRICING.devices.note.price +
     devices.notePro * PRICING.devices.notePro.price;
-  const subscriptionCost = users * PRICING.plans[plan].yearly * years;
+  const subscriptionCost = users * planYearlyKrw(plan, usdRate) * years;
   let tco = hardwareCost + subscriptionCost;
   if (vatIncluded) tco = Math.round(tco * (1 + PRICING.vatRate));
 

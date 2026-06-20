@@ -1,13 +1,20 @@
 import type { QuoteInput } from "../lib/calc";
 import { PRICING } from "../data/pricing";
+import type { ExchangeRate } from "../hooks/useExchangeRate";
 
 interface Props {
   input: QuoteInput;
   set: <K extends keyof QuoteInput>(k: K, v: QuoteInput[K]) => void;
   setRoi: (k: keyof QuoteInput["roi"], v: number) => void;
+  fx: ExchangeRate;
 }
 
-export function InputPanel({ input, set, setRoi }: Props) {
+export function InputPanel({ input, set, setRoi, fx }: Props) {
+  // Pro 구독은 달러 기반 — 실시간 환율 적용 시 "실시간", 폴백 시 "추정"
+  const proLive = fx.isLive && typeof PRICING.plans.pro.usd === "number";
+  const proBadge = proLive
+    ? ` · 실시간 ₩${Math.round(fx.rate).toLocaleString()}/$`
+    : (PRICING.plans.pro.estimated ? " ⚠️추정" : "");
   return (
     <section className="p-6 rounded-2xl bg-white/5 backdrop-blur border border-white/10">
       <h2 className="text-lg font-bold mb-5">입력</h2>
@@ -35,7 +42,7 @@ export function InputPanel({ input, set, setRoi }: Props) {
               <select value={input.plan} onChange={(e) => set("plan", e.target.value as "starter" | "pro")}
                 className="w-full px-3 py-2 rounded bg-black/30 border border-white/10">
                 <option value="starter">{PRICING.plans.starter.label}{PRICING.plans.starter.estimated ? " ⚠️추정" : ""}</option>
-                <option value="pro">{PRICING.plans.pro.label}{PRICING.plans.pro.estimated ? " ⚠️추정" : ""}</option>
+                <option value="pro">{PRICING.plans.pro.label}{proBadge}</option>
               </select>
             </div>
             <div className="space-y-1.5">
