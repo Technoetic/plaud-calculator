@@ -16,8 +16,6 @@ export default function App() {
         {/* 입력: 그 아래 전폭 */}
         <div className="no-print"><InputPanel input={input} set={set} setRoi={setRoi} fx={fx} /></div>
       </div>
-      <button onClick={() => window.print()}
-        className="no-print mt-8 px-5 py-2 rounded-lg bg-accent text-black font-semibold">🖨️ 인쇄 / PDF</button>
     </main>
   );
 }
