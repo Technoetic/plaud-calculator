@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# SDD 작업 산출물(배포 제외)
+_sdd/
