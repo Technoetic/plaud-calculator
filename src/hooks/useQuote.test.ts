@@ -9,7 +9,7 @@ describe("useQuote", () => {
   });
   it("set으로 기기 수량 변경 시 result 재계산", () => {
     const { result } = renderHook(() => useQuote());
-    act(() => result.current.set("devices", { note: 2, notePro: 0 }));
+    act(() => result.current.set("devices", { note: 2, notePin: 0, notePro: 0 }));
     expect(result.current.result.hardwareCost).toBe(538000);
   });
 });

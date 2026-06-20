@@ -2,8 +2,9 @@ import { describe, it, expect } from "vitest";
 import { PRICING } from "./pricing";
 
 describe("PRICING", () => {
-  it("노트/노트Pro 정가가 확정값", () => {
+  it("노트/노트핀S/노트Pro 정가가 확정값", () => {
     expect(PRICING.devices.note.price).toBe(269000);
+    expect(PRICING.devices.notePin.price).toBe(319000);
     expect(PRICING.devices.notePro.price).toBe(319000);
   });
   it("무료 Starter는 0원·300분·공식확정(추정 아님)", () => {
@@ -15,6 +16,11 @@ describe("PRICING", () => {
     expect(PRICING.plans.pro.yearly).toBe(133000);
     expect(PRICING.plans.pro.minutes).toBe(1200);
     expect(PRICING.plans.pro.estimated).toBe(true); // 환율 환산이라 추정 유지
+  });
+  it("Unlimited는 공식 $239.99/년·무제한(minutes=0 센티넬)·추정 표기", () => {
+    expect(PRICING.plans.unlimited.usd).toBe(239.99);
+    expect(PRICING.plans.unlimited.minutes).toBe(0);
+    expect(PRICING.plans.unlimited.estimated).toBe(true);
   });
   it("ROI 기본값 존재", () => {
     expect(PRICING.roiDefaults.meetingsPerMonth).toBe(20);

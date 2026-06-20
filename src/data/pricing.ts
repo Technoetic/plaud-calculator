@@ -5,8 +5,8 @@ export interface Device { label: string; price: number }
 export interface Plan { label: string; yearly: number; minutes: number; estimated: boolean; note?: string; usd?: number }
 export interface PlaudPricing {
   asOf: string; vatRate: number; usdRate: number;
-  devices: { note: Device; notePro: Device };
-  plans: { starter: Plan; pro: Plan };
+  devices: { note: Device; notePin: Device; notePro: Device };
+  plans: { starter: Plan; pro: Plan; unlimited: Plan };
   roiDefaults: { meetingsPerMonth: number; minutesPerNote: number; hourlyWage: number };
 }
 
@@ -15,14 +15,17 @@ export const PRICING: PlaudPricing = {
   vatRate: 0.1,
   usdRate: 1330, // ₩/$ 환산 기준 — 변동 시 갱신
   devices: {
-    note: { label: "PLAUD 노트 64GB", price: 269000 },       // 확정(plaud.kr 정가)
-    notePro: { label: "PLAUD 노트 Pro 64GB", price: 319000 }, // 확정(plaud.kr 정가)
+    note: { label: "PLAUD 노트 64GB", price: 269000 },          // 확정(plaud.kr 정가)
+    notePin: { label: "PLAUD 노트핀 S 64GB", price: 319000 },   // 확정(plaud.kr 정가, 웨어러블·물리버튼)
+    notePro: { label: "PLAUD 노트 Pro 64GB", price: 319000 },   // 확정(plaud.kr 정가)
   },
   plans: {
     // 무료 Starter 300분: 모든 기기 기본 포함·만료 없음(plaud.ai 공식·support.plaud.ai 확인) → 확정
     starter: { label: "Starter(무료)", yearly: 0, minutes: 300, estimated: false },
-    // Pro 연 $99.99(공식, 진실의 원천)·1,200분/월. 원화는 런타임에 실시간 환율로 환산(실패 시 yearly 폴백값).
+    // Pro 연 $99.99(공식)·1,200분/월. 원화는 런타임 실시간 환율 환산(실패 시 yearly 폴백).
     pro: { label: "Pro", usd: 99.99, yearly: 133000, minutes: 1200, estimated: true, note: "공식 $99.99/년" },
+    // Unlimited 연 $239.99(공식)·무제한(하루 24h). minutes 0 = 무제한 표기용 센티넬.
+    unlimited: { label: "Unlimited", usd: 239.99, yearly: 319000, minutes: 0, estimated: true, note: "공식 $239.99/년·무제한" },
   },
   roiDefaults: { meetingsPerMonth: 20, minutesPerNote: 30, hourlyWage: 30000 },
 };

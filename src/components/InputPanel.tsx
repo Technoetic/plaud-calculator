@@ -10,22 +10,37 @@ interface Props {
 }
 
 export function InputPanel({ input, set, setRoi, fx }: Props) {
-  // Pro 구독은 달러 기반 — 실시간 환율 적용 시 "실시간", 폴백 시 "추정"
+  // USD 기반 플랜 배지 — 실시간 환율 적용 시 "실시간", 폴백 시 "추정"
   const proLive = fx.isLive && typeof PRICING.plans.pro.usd === "number";
   const proBadge = proLive
     ? ` · 실시간 ₩${Math.round(fx.rate).toLocaleString()}/$`
     : (PRICING.plans.pro.estimated ? " ⚠️추정" : "");
+  const unlimitedLive = fx.isLive && typeof PRICING.plans.unlimited.usd === "number";
+  const unlimitedBadge = unlimitedLive
+    ? ` · 실시간 ₩${Math.round(fx.rate).toLocaleString()}/$`
+    : (PRICING.plans.unlimited.estimated ? " ⚠️추정" : "");
+  // 월 전사 한도 표시: minutes===0 이면 무제한, 아니면 N분
+  const selectedPlanMinutes = PRICING.plans[input.plan].minutes;
+  const transcriptionLimit = selectedPlanMinutes === 0
+    ? "무제한"
+    : `${selectedPlanMinutes.toLocaleString()}분`;
   return (
     <section className="p-6 rounded-2xl bg-white/5 backdrop-blur border border-white/10">
       <h2 className="text-lg font-bold mb-5">입력</h2>
       <div className="grid md:grid-cols-2 gap-x-8 gap-y-5">
         {/* 좌: 기기·구독·기간·VAT */}
         <div className="space-y-5">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-3 gap-3">
             <div className="space-y-1.5">
               <label className="block text-sm text-white/70">{PRICING.devices.note.label} 수량</label>
               <input type="number" min={0} value={input.devices.note}
                 onChange={(e) => set("devices", { ...input.devices, note: Math.max(0, Number(e.target.value) || 0) })}
+                className="w-full px-3 py-2 rounded bg-black/30 border border-white/10" />
+            </div>
+            <div className="space-y-1.5">
+              <label className="block text-sm text-white/70">{PRICING.devices.notePin.label} 수량</label>
+              <input type="number" min={0} value={input.devices.notePin}
+                onChange={(e) => set("devices", { ...input.devices, notePin: Math.max(0, Number(e.target.value) || 0) })}
                 className="w-full px-3 py-2 rounded bg-black/30 border border-white/10" />
             </div>
             <div className="space-y-1.5">
@@ -38,12 +53,14 @@ export function InputPanel({ input, set, setRoi, fx }: Props) {
 
           <div className="space-y-1.5">
             <label className="block text-sm text-white/70">구독 플랜</label>
-            <select value={input.plan} onChange={(e) => set("plan", e.target.value as "starter" | "pro")}
+            <select value={input.plan} onChange={(e) => set("plan", e.target.value as "starter" | "pro" | "unlimited")}
               className="w-full px-3 py-2 rounded bg-black/30 border border-white/10">
               <option value="starter">{PRICING.plans.starter.label}{PRICING.plans.starter.estimated ? " ⚠️추정" : ""}</option>
               <option value="pro">{PRICING.plans.pro.label}{proBadge}</option>
+              <option value="unlimited">{PRICING.plans.unlimited.label}{unlimitedBadge}</option>
             </select>
-            <p className="text-[11px] text-white/40">구독은 기기 1대당 1개 — 기기 총 {input.devices.note + input.devices.notePro}대 기준 적용</p>
+            <p className="text-[11px] text-white/40">월 전사 한도: {transcriptionLimit}</p>
+            <p className="text-[11px] text-white/40">구독은 기기 1대당 1개 — 기기 총 {input.devices.note + input.devices.notePin + input.devices.notePro}대 기준 적용</p>
           </div>
 
           <div className="flex gap-2">

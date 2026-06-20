@@ -6,7 +6,7 @@ import { useExchangeRate } from "./useExchangeRate";
 import type { ExchangeRate } from "./useExchangeRate";
 
 const initial: QuoteInput = {
-  devices: { note: 1, notePro: 0 },
+  devices: { note: 1, notePin: 0, notePro: 0 },
   plan: "starter", years: 1, vatIncluded: false,
   roi: { ...PRICING.roiDefaults },
 };
