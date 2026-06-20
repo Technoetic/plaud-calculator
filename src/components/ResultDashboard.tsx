@@ -5,24 +5,28 @@ import { TcoChart } from "./TcoChart";
 import { PaybackGauge } from "./PaybackGauge";
 
 const card = "p-6 rounded-2xl bg-white/5 backdrop-blur border border-white/10";
+const statCard = "px-4 py-5 rounded-2xl bg-white/5 backdrop-blur border border-white/10 min-w-0";
 
 export function ResultDashboard({ result, years }: { result: QuoteResult; years: number }) {
   const stats = [
-    { label: `${years}년 총비용(TCO)`, value: result.tco, suffix: " 원" },
-    { label: "월 절약액(추정)", value: result.monthlySaving, suffix: " 원" },
-    { label: "투자 회수기간", value: Math.round(result.paybackMonths * 10) / 10, suffix: " 개월" },
-    { label: `${years}년 순절약액(추정)`, value: result.netSaving, suffix: " 원" },
+    { label: `${years}년 총비용(TCO)`, value: result.tco, unit: "원" },
+    { label: "월 절약액(추정)", value: result.monthlySaving, unit: "원" },
+    { label: "투자 회수기간", value: Math.round(result.paybackMonths * 10) / 10, unit: "개월" },
+    { label: `${years}년 순절약액(추정)`, value: result.netSaving, unit: "원" },
   ];
   return (
     <section className="space-y-6">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {stats.map((s, i) => (
-          <motion.div key={s.label} className={card}
+          <motion.div key={s.label} className={statCard}
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.12, duration: 0.5 }}>
-            <div className="text-xs text-white/60">{s.label}</div>
-            <div className="text-2xl font-bold text-accent">
-              <NumberTicker value={s.value} suffix={s.suffix} />
+            <div className="text-xs text-white/60 break-keep leading-snug">{s.label}</div>
+            <div className="mt-1 flex items-baseline gap-1 whitespace-nowrap">
+              <span className="text-xl lg:text-2xl font-bold text-accent tabular-nums leading-none">
+                <NumberTicker value={s.value} />
+              </span>
+              <span className="text-sm text-accent/80 shrink-0">{s.unit}</span>
             </div>
           </motion.div>
         ))}
