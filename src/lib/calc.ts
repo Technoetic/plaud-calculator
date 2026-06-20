@@ -3,7 +3,6 @@ import { PRICING } from "../data/pricing";
 export interface QuoteInput {
   devices: { note: number; notePro: number };
   plan: "starter" | "pro";
-  users: number;
   years: 1 | 3;
   vatIncluded: boolean;
   roi: { meetingsPerMonth: number; minutesPerNote: number; hourlyWage: number };
@@ -25,11 +24,13 @@ export function planYearlyKrw(plan: "starter" | "pro", usdRate?: number): number
 }
 
 export function computeQuote(input: QuoteInput, usdRate?: number): QuoteResult {
-  const { devices, plan, users, years, vatIncluded, roi } = input;
+  const { devices, plan, years, vatIncluded, roi } = input;
   const hardwareCost =
     devices.note * PRICING.devices.note.price +
     devices.notePro * PRICING.devices.notePro.price;
-  const subscriptionCost = users * planYearlyKrw(plan, usdRate) * years;
+  // 구독 인원 = 기기 총 대수(기기 1대 = 구독 1개). PLAUD는 기기 단위 구독 구조.
+  const seats = devices.note + devices.notePro;
+  const subscriptionCost = seats * planYearlyKrw(plan, usdRate) * years;
   let tco = hardwareCost + subscriptionCost;
   if (vatIncluded) tco = Math.round(tco * (1 + PRICING.vatRate));
 

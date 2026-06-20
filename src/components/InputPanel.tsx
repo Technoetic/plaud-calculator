@@ -36,21 +36,14 @@ export function InputPanel({ input, set, setRoi, fx }: Props) {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1.5">
-              <label className="block text-sm text-white/70">구독 플랜</label>
-              <select value={input.plan} onChange={(e) => set("plan", e.target.value as "starter" | "pro")}
-                className="w-full px-3 py-2 rounded bg-black/30 border border-white/10">
-                <option value="starter">{PRICING.plans.starter.label}{PRICING.plans.starter.estimated ? " ⚠️추정" : ""}</option>
-                <option value="pro">{PRICING.plans.pro.label}{proBadge}</option>
-              </select>
-            </div>
-            <div className="space-y-1.5">
-              <label className="block text-sm text-white/70">사용자 수</label>
-              <input type="number" min={1} value={input.users}
-                onChange={(e) => set("users", Math.max(1, Number(e.target.value) || 1))}
-                className="w-full px-3 py-2 rounded bg-black/30 border border-white/10" />
-            </div>
+          <div className="space-y-1.5">
+            <label className="block text-sm text-white/70">구독 플랜</label>
+            <select value={input.plan} onChange={(e) => set("plan", e.target.value as "starter" | "pro")}
+              className="w-full px-3 py-2 rounded bg-black/30 border border-white/10">
+              <option value="starter">{PRICING.plans.starter.label}{PRICING.plans.starter.estimated ? " ⚠️추정" : ""}</option>
+              <option value="pro">{PRICING.plans.pro.label}{proBadge}</option>
+            </select>
+            <p className="text-[11px] text-white/40">구독은 기기 1대당 1개 — 기기 총 {input.devices.note + input.devices.notePro}대 기준 적용</p>
           </div>
 
           <div className="flex gap-2">

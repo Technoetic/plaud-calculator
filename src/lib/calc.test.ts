@@ -3,7 +3,7 @@ import { computeQuote, won } from "./calc";
 import type { QuoteInput } from "./calc";
 
 const base: QuoteInput = {
-  devices: { note: 1, notePro: 0 }, plan: "starter", users: 1, years: 1,
+  devices: { note: 1, notePro: 0 }, plan: "starter", years: 1,
   vatIncluded: false, roi: { meetingsPerMonth: 20, minutesPerNote: 30, hourlyWage: 30000 },
 };
 
@@ -14,9 +14,9 @@ describe("computeQuote TCO", () => {
     expect(r.subscriptionCost).toBe(0);
     expect(r.tco).toBe(269000);
   });
-  it("노트Pro2대·Pro·2명·3년 VAT별도", () => {
-    const r = computeQuote({ ...base, devices: { note: 0, notePro: 2 }, plan: "pro", users: 2, years: 3 });
-    // 하드웨어 2×319,000=638,000 ; 구독 2명×133,000×3년=798,000 ; TCO 1,436,000
+  it("노트Pro2대·Pro·3년 VAT별도 (구독=기기2대)", () => {
+    const r = computeQuote({ ...base, devices: { note: 0, notePro: 2 }, plan: "pro", years: 3 });
+    // 하드웨어 2×319,000=638,000 ; 구독 2대×133,000×3년=798,000 ; TCO 1,436,000
     expect(r.hardwareCost).toBe(638000);
     expect(r.subscriptionCost).toBe(798000);
     expect(r.tco).toBe(1436000);
