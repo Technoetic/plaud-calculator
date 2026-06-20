@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { computeQuote, won, QuoteInput } from "./calc";
+import { computeQuote, won } from "./calc";
+import type { QuoteInput } from "./calc";
 
 const base: QuoteInput = {
   devices: { note: 1, notePro: 0 }, plan: "starter", users: 1, years: 1,
