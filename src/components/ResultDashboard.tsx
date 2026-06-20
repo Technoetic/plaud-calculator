@@ -1,10 +1,7 @@
 import { motion } from "framer-motion";
 import type { QuoteResult } from "../lib/calc";
 import { NumberTicker } from "./NumberTicker";
-import { TcoChart } from "./TcoChart";
-import { PaybackGauge } from "./PaybackGauge";
 
-const card = "p-6 rounded-2xl bg-white/5 backdrop-blur border border-white/10";
 const statCard = "px-4 py-5 rounded-2xl bg-white/5 backdrop-blur border border-white/10 min-w-0 flex flex-col";
 
 export function ResultDashboard({ result, years }: { result: QuoteResult; years: number }) {
@@ -36,13 +33,8 @@ export function ResultDashboard({ result, years }: { result: QuoteResult; years:
           </motion.div>
         ))}
       </div>
-      <div className="grid md:grid-cols-2 gap-4">
-        <div className={card}><TcoChart result={result} /></div>
-        <div className={card}><PaybackGauge paybackMonths={result.paybackMonths} /></div>
-      </div>
       <p className="text-[11px] text-white/40">
-        {/* 단가 기준 2026-06 · 구독·무료한도는 추정 · ROI는 가정 기반 · 한국어 요약 품질 별도 검증 필요 */}
-        단가 기준 2026-06 · 구독·무료한도는 추정 · ROI는 가정 기반 · 한국어 요약 품질 별도 검증 필요
+        하드웨어·무료 Starter(월 300분)는 공식 확정 · Pro 요금은 공식 $99.99/년 환율 환산(추정) · ROI는 가정 기반 · 한국어 요약 품질 별도 검증 필요
       </p>
     </section>
   );

@@ -16,10 +16,10 @@ describe("computeQuote TCO", () => {
   });
   it("노트Pro2대·Pro·2명·3년 VAT별도", () => {
     const r = computeQuote({ ...base, devices: { note: 0, notePro: 2 }, plan: "pro", users: 2, years: 3 });
-    // 하드웨어 2×319,000=638,000 ; 구독 2명×105,000×3년=630,000 ; TCO 1,268,000
+    // 하드웨어 2×319,000=638,000 ; 구독 2명×133,000×3년=798,000 ; TCO 1,436,000
     expect(r.hardwareCost).toBe(638000);
-    expect(r.subscriptionCost).toBe(630000);
-    expect(r.tco).toBe(1268000);
+    expect(r.subscriptionCost).toBe(798000);
+    expect(r.tco).toBe(1436000);
   });
   it("VAT 포함 시 ×1.1", () => {
     const r = computeQuote({ ...base, vatIncluded: true });
