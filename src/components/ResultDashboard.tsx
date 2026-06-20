@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import type { QuoteResult } from "../lib/calc";
 import { NumberTicker } from "./NumberTicker";
+import { TcoChart } from "./TcoChart";
+import { PaybackGauge } from "./PaybackGauge";
 
 const card = "p-6 rounded-2xl bg-white/5 backdrop-blur border border-white/10";
 
@@ -23,6 +25,10 @@ export function ResultDashboard({ result, years }: { result: QuoteResult; years:
             </div>
           </motion.div>
         ))}
+      </div>
+      <div className="grid md:grid-cols-2 gap-4">
+        <div className={card}><TcoChart result={result} /></div>
+        <div className={card}><PaybackGauge paybackMonths={result.paybackMonths} /></div>
       </div>
       <p className="text-[11px] text-white/40">
         {/* 단가 기준 2026-06 · 구독·무료한도는 추정 · ROI는 가정 기반 · 한국어 요약 품질 별도 검증 필요 */}
