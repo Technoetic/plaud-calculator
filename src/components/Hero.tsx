@@ -1,26 +1,19 @@
-import { Canvas } from "@react-three/fiber";
-import { Float, RoundedBox, Environment } from "@react-three/drei";
 import { motion } from "framer-motion";
 
 export function Hero() {
   return (
-    <header className="relative grid md:grid-cols-2 items-center gap-6 mb-8">
+    <header className="relative mb-10">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-        <h1 className="text-4xl font-black leading-tight">PLAUD AI 녹음기<br/>도입 견적</h1>
-        <p className="mt-3 text-white/60">영업 미팅·통화를 AI 요약으로 — 도입 총비용과 회수기간을 즉시 산출</p>
+        <span className="inline-block text-xs font-semibold tracking-wider text-accent/90 px-2.5 py-1 rounded-full bg-accent/10 border border-accent/20">
+          PLAUD AI · 도입 견적 시뮬레이터
+        </span>
+        <h1 className="mt-4 text-4xl md:text-5xl font-black leading-tight">
+          PLAUD AI 녹음기 <span className="text-accent">도입 견적</span>
+        </h1>
+        <p className="mt-3 text-white/60 max-w-2xl">
+          영업 미팅·통화를 AI 요약으로 — 기기·구독·기간을 입력하면 <strong className="text-white/80">도입 총비용(TCO)</strong>과 <strong className="text-white/80">투자 회수기간</strong>을 즉시 산출합니다.
+        </p>
       </motion.div>
-      <div className="h-64 no-print">
-        <Canvas camera={{ position: [0, 0, 4] }}>
-          <ambientLight intensity={0.6} />
-          <directionalLight position={[3, 3, 3]} />
-          <Float speed={2} rotationIntensity={1.2} floatIntensity={1.5}>
-            <RoundedBox args={[1, 1.7, 0.25]} radius={0.08}>
-              <meshStandardMaterial color="#ff6a3d" metalness={0.4} roughness={0.3} />
-            </RoundedBox>
-          </Float>
-          <Environment preset="city" />
-        </Canvas>
-      </div>
     </header>
   );
 }
