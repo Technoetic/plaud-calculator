@@ -5,7 +5,7 @@ import { TcoChart } from "./TcoChart";
 import { PaybackGauge } from "./PaybackGauge";
 
 const card = "p-6 rounded-2xl bg-white/5 backdrop-blur border border-white/10";
-const statCard = "px-4 py-5 rounded-2xl bg-white/5 backdrop-blur border border-white/10 min-w-0";
+const statCard = "px-4 py-5 rounded-2xl bg-white/5 backdrop-blur border border-white/10 min-w-0 flex flex-col";
 
 export function ResultDashboard({ result, years }: { result: QuoteResult; years: number }) {
   const stats = [
@@ -21,12 +21,12 @@ export function ResultDashboard({ result, years }: { result: QuoteResult; years:
           <motion.div key={s.label} className={statCard}
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.12, duration: 0.5 }}>
-            <div className="text-xs text-white/60 break-keep leading-snug">{s.label}</div>
-            <div className="mt-1 flex items-baseline gap-1 whitespace-nowrap">
+            <div className="text-xs text-white/60 break-keep leading-snug min-h-[2.25rem]">{s.label}</div>
+            <div className="mt-auto pt-2 flex items-baseline gap-0.5 whitespace-nowrap">
               <span className="text-xl lg:text-2xl font-bold text-accent tabular-nums leading-none">
                 <NumberTicker value={s.value} />
               </span>
-              <span className="text-sm text-accent/80 shrink-0">{s.unit}</span>
+              <span className="text-sm font-semibold text-accent/80 shrink-0">{s.unit}</span>
             </div>
           </motion.div>
         ))}
