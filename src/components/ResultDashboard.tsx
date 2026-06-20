@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import type { QuoteResult } from "../lib/calc";
 import { NumberTicker } from "./NumberTicker";
 
-const statCard = "px-4 py-5 rounded-2xl bg-white/5 backdrop-blur border border-white/10 min-w-0 flex flex-col";
+const statCard = "px-6 py-7 rounded-2xl bg-white/5 backdrop-blur border border-white/10 min-w-0 flex flex-col";
 
 export function ResultDashboard({ result, years }: { result: QuoteResult; years: number }) {
   const stats = [
@@ -18,17 +18,17 @@ export function ResultDashboard({ result, years }: { result: QuoteResult; years:
           <motion.div key={s.label} className={statCard}
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.12, duration: 0.5 }}>
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="text-xs text-white/70 break-keep leading-snug">{s.label}</span>
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-sm text-white/70 break-keep leading-snug">{s.label}</span>
               {s.note && (
                 <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/10 text-white/50 shrink-0">{s.note}</span>
               )}
             </div>
-            <div className="mt-auto pt-3 flex items-baseline gap-0.5 whitespace-nowrap">
-              <span className="text-lg lg:text-xl font-bold text-accent tabular-nums leading-none tracking-tight">
+            <div className="mt-auto pt-4 flex items-baseline gap-1 whitespace-nowrap">
+              <span className="text-2xl xl:text-3xl font-bold text-accent tabular-nums leading-none tracking-tight">
                 <NumberTicker value={s.value} />
               </span>
-              <span className="text-xs font-semibold text-accent/80 shrink-0">{s.unit}</span>
+              <span className="text-sm font-semibold text-accent/80 shrink-0">{s.unit}</span>
             </div>
           </motion.div>
         ))}
