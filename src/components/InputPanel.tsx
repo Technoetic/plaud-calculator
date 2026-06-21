@@ -30,24 +30,27 @@ export function InputPanel({ input, set, setRoi, fx }: Props) {
       <div className="grid md:grid-cols-2 gap-x-8 gap-y-5">
         {/* 좌: 기기·구독·기간·VAT */}
         <div className="space-y-5">
-          <div className="grid grid-cols-3 gap-3">
-            <div className="space-y-1.5">
-              <label className="block text-sm text-white/70">{PRICING.devices.note.label} 수량</label>
-              <input type="number" min={0} value={input.devices.note}
-                onChange={(e) => set("devices", { ...input.devices, note: Math.max(0, Number(e.target.value) || 0) })}
-                className="w-full px-3 py-2 rounded bg-black/30 border border-white/10" />
-            </div>
-            <div className="space-y-1.5">
-              <label className="block text-sm text-white/70">{PRICING.devices.notePin.label} 수량</label>
-              <input type="number" min={0} value={input.devices.notePin}
-                onChange={(e) => set("devices", { ...input.devices, notePin: Math.max(0, Number(e.target.value) || 0) })}
-                className="w-full px-3 py-2 rounded bg-black/30 border border-white/10" />
-            </div>
-            <div className="space-y-1.5">
-              <label className="block text-sm text-white/70">{PRICING.devices.notePro.label} 수량</label>
-              <input type="number" min={0} value={input.devices.notePro}
-                onChange={(e) => set("devices", { ...input.devices, notePro: Math.max(0, Number(e.target.value) || 0) })}
-                className="w-full px-3 py-2 rounded bg-black/30 border border-white/10" />
+          <div>
+            <p className="text-sm text-white/70 mb-2">기기 수량 <span className="text-white/40 text-xs">(PLAUD 64GB)</span></p>
+            <div className="grid grid-cols-3 gap-3">
+              <div className="space-y-1.5">
+                <label className="block text-xs text-white/60 break-keep leading-snug min-h-[2rem]">노트</label>
+                <input type="number" min={0} value={input.devices.note}
+                  onChange={(e) => set("devices", { ...input.devices, note: Math.max(0, Number(e.target.value) || 0) })}
+                  className="w-full px-3 py-2 rounded bg-black/30 border border-white/10" />
+              </div>
+              <div className="space-y-1.5">
+                <label className="block text-xs text-white/60 break-keep leading-snug min-h-[2rem]">노트핀 S</label>
+                <input type="number" min={0} value={input.devices.notePin}
+                  onChange={(e) => set("devices", { ...input.devices, notePin: Math.max(0, Number(e.target.value) || 0) })}
+                  className="w-full px-3 py-2 rounded bg-black/30 border border-white/10" />
+              </div>
+              <div className="space-y-1.5">
+                <label className="block text-xs text-white/60 break-keep leading-snug min-h-[2rem]">노트 Pro</label>
+                <input type="number" min={0} value={input.devices.notePro}
+                  onChange={(e) => set("devices", { ...input.devices, notePro: Math.max(0, Number(e.target.value) || 0) })}
+                  className="w-full px-3 py-2 rounded bg-black/30 border border-white/10" />
+              </div>
             </div>
           </div>
 
