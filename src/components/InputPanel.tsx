@@ -19,11 +19,9 @@ export function InputPanel({ input, set, setRoi, fx }: Props) {
   const unlimitedBadge = unlimitedLive
     ? ` · 실시간 ₩${Math.round(fx.rate).toLocaleString()}/$`
     : (PRICING.plans.unlimited.estimated ? " ⚠️추정" : "");
-  // 월 전사 한도 표시: minutes===0 이면 무제한, 아니면 N분
-  const selectedPlanMinutes = PRICING.plans[input.plan].minutes;
-  const transcriptionLimit = selectedPlanMinutes === 0
-    ? "무제한"
-    : `${selectedPlanMinutes.toLocaleString()}분`;
+  // 월 전사 한도 포맷: minutes===0 이면 무제한, 아니면 N분/월
+  const limitText = (minutes: number) => (minutes === 0 ? "무제한" : `${minutes.toLocaleString()}분/월`);
+  const transcriptionLimit = limitText(PRICING.plans[input.plan].minutes);
   return (
     <section className="p-6 rounded-2xl bg-white/5 backdrop-blur border border-white/10">
       <h2 className="text-lg font-bold mb-5">입력</h2>
@@ -58,9 +56,9 @@ export function InputPanel({ input, set, setRoi, fx }: Props) {
             <label className="block text-sm text-white/70">구독 플랜</label>
             <select value={input.plan} onChange={(e) => set("plan", e.target.value as "starter" | "pro" | "unlimited")}
               className="w-full px-3 py-2 rounded bg-black/30 border border-white/10">
-              <option value="starter">{PRICING.plans.starter.label}{PRICING.plans.starter.estimated ? " ⚠️추정" : ""}</option>
-              <option value="pro">{PRICING.plans.pro.label}{proBadge}</option>
-              <option value="unlimited">{PRICING.plans.unlimited.label}{unlimitedBadge}</option>
+              <option value="starter">{PRICING.plans.starter.label} · {limitText(PRICING.plans.starter.minutes)}{PRICING.plans.starter.estimated ? " ⚠️추정" : ""}</option>
+              <option value="pro">{PRICING.plans.pro.label} · {limitText(PRICING.plans.pro.minutes)}{proBadge}</option>
+              <option value="unlimited">{PRICING.plans.unlimited.label} · {limitText(PRICING.plans.unlimited.minutes)}{unlimitedBadge}</option>
             </select>
             <p className="text-[11px] text-white/40">월 전사 한도: {transcriptionLimit}</p>
             <p className="text-[11px] text-white/40">구독은 기기 1대당 1개 — 기기 총 {input.devices.note + input.devices.notePin + input.devices.notePro}대 기준 적용</p>
