@@ -55,7 +55,8 @@ export function InputPanel({ input, set, setRoi, fx }: Props) {
           <div className="space-y-1.5">
             <label className="block text-sm text-white/70">구독 플랜</label>
             <select value={input.plan} onChange={(e) => set("plan", e.target.value as "starter" | "pro" | "unlimited")}
-              className="w-full px-3 py-2 rounded bg-black/30 border border-white/10">
+              style={{ colorScheme: "dark" }}
+              className="w-full px-3 py-2 rounded bg-black/30 border border-white/10 accent-[#ff6a3d] [&>option]:bg-[#0b1220] [&>option]:text-white">
               <option value="starter">{PRICING.plans.starter.label} · {limitText(PRICING.plans.starter.minutes)}{PRICING.plans.starter.estimated ? " ⚠️추정" : ""}</option>
               <option value="pro">{PRICING.plans.pro.label} · {limitText(PRICING.plans.pro.minutes)}{proBadge}</option>
               <option value="unlimited">{PRICING.plans.unlimited.label} · {limitText(PRICING.plans.unlimited.minutes)}{unlimitedBadge}</option>
